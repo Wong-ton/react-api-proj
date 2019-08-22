@@ -6,6 +6,7 @@ class Register extends React.Component {
         name: "",
         email: "",
         password: "",
+        message: ""
     }
 
     changeHandler = (e) => {
@@ -21,11 +22,17 @@ class Register extends React.Component {
         data.append("email", this.state.email);
         data.append("password", this.state.password);
 
-    const registerCall = await this.props.register(data)
-        if (registerCall.status.success){
+        const registerCall = await this.props.register(data)
+            if (registerCall.status.success){
             // this.props.history.push("/profile")
-            console.log("registered successfully")
-        }
+                this.setState({
+                    message: "Account created."
+                })
+            } else {
+                this.setState({
+                    message: "** This e-mail already exists. **"
+                })
+            }
     }
 
     render(){
@@ -66,6 +73,7 @@ class Register extends React.Component {
                             Submit
                     </button>
                 </form>
+                <p>{this.state.message}</p>
             </div>
         )
     }

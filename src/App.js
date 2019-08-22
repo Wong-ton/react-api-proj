@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Register from './Register';
+import Login from './Login';
 
 class App extends React.Component {
 
@@ -9,15 +10,18 @@ class App extends React.Component {
     email: ""
   }
 
-  
-  logIn = async (loginInfo) => {
+
+  logIn = async (data) => {
     try {
       const loginResponse = await fetch("http://localhost:8000/users/login", {
         method: "POST",
         credentials: "include",
-        body: JSON.stringify(loginInfo),
+        // body: JSON.stringify(loginInfo),
+        // headers: {
+        //   "Content-Type": "application/json"
+        body: data,
         headers: {
-          "Content-Type": "application/json"
+         "enctype": "multipart/form-data"
         }
       })
 
@@ -64,7 +68,7 @@ class App extends React.Component {
         <hr/>
         <Register register={this.register}/>
         <hr/>
-        <Login />
+        <Login login={this.logIn}/>
       </div>
     );
   }

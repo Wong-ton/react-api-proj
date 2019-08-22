@@ -5,6 +5,7 @@ class Login extends React.Component {
     state = {
         email: "",
         password: "",
+        message: "",
     }
 
     changeHandler = (e) => {
@@ -13,6 +14,22 @@ class Login extends React.Component {
 
     submitHandler = async (e) => {
         e.preventDefault();
+        const data = new FormData();
+        data.append("email", this.state.email);
+        data.append("password", this.state.password);
+
+        const loginCall = await this.props.login(data);
+            if (loginCall.status.success){
+                // this.props.history.push("/profile")
+                this.setState({
+                    message: "Logged in successfully"
+                })
+            } else {
+                this.setState({
+                    message: "** Email or Password is incorrect. **"
+                })
+            }
+
     }
 
     render(){
@@ -39,9 +56,11 @@ class Login extends React.Component {
                         type="submit">
                             Submit
                     </button>
-
                 </form>
+                <p>{this.state.message}</p>
             </div>
         )
     }
 }
+
+export default Login;

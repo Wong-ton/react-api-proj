@@ -1,4 +1,5 @@
 import React from 'react';
+import '../App.css';
 
 class Edit extends React.Component {
     

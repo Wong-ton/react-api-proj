@@ -1,4 +1,5 @@
 import React from 'react';
+import '../App.css';
 
 class TrendingMovies extends React.Component {
 
@@ -28,12 +29,14 @@ class TrendingMovies extends React.Component {
                 {console.log(this.state.trendingMovies)}
                 {this.state.trendingMovies.map((m, i) => {
                     return(
-                        <div key={i}>
+                        <div className="flickContainer" key={i}>
                         <li>
+                            <img src={`https://image.tmdb.org/t/p/w185/${m.poster_path}`} />
+                            <br/>
                             {m.original_title}
                             <ul>{m.overview}</ul>
                         </li>
-                        </div>
+                        </div>  
                     )
                 })}
             </ol>

@@ -1,8 +1,10 @@
 import React from 'react';
 import './App.css';
+import { Route, Switch } from 'react-router-dom';
 import Register from './Register';
 import Login from './Login';
 import Edit from './Edit';
+import TrendingMovies from './Trending/movies';
 
 class App extends React.Component {
 
@@ -10,19 +12,24 @@ class App extends React.Component {
     id: "",
     name: "",
     email: "",
-    trendingMovies: [],
+    loggedIn: false,
+    // trendingMovies: [],
   }
 
-  componentDidMount(){
-    
-    fetch("https://api.themoviedb.org/3/trending/movie/day?api_key=76b7eb9d74b21ff2bf120a4499967ac6")
-      .then(response => {
-        return response.json()
-      })
-      .then(data => {
-        this.setState({ trendingMovies: data.results.trendingMovies }) 
-      })
-  }
+  // componentDidMount(){
+  //   this.getMovies()
+  // }
+  
+  // getMovies() {
+  //   fetch("https://api.themoviedb.org/3/trending/movie/day?api_key=76b7eb9d74b21ff2bf120a4499967ac6")
+  //     .then(response => {
+  //       return response.json()
+  //     })
+  //     .then(data => {
+  //       this.setState({ trendingMovies: data.results })
+  //       console.log(this.state.trendingMovies)
+  //     })
+  // }
 
   logIn = async (data) => {
     try {
@@ -38,6 +45,7 @@ class App extends React.Component {
       const parsedResponse = await loginResponse.json();
       this.setState({
         ...parsedResponse.data,
+        loggedIn: true,
       })
       return parsedResponse
     
@@ -95,18 +103,23 @@ class App extends React.Component {
 
   render(){
     return (
-      <div className="App">
-        REACT
-        <hr/>
-        <Register register={this.register}/>
-        <hr/>
-        <Login login={this.logIn}/>
-        <hr/>
-        <Edit edit={this.edit} name={this.state.name} email={this.state.email} />
-
-      </div>
+      <Switch>
+        <Route exact path="/trending/movies" render={(props) => <TrendingMovies {...props} movies={this.state.trendingMovies}/> }/>
+        <Route exact path="/register" render={(props) => <Register {...props} register={this.register}/> }/>
+        <Route exact path="/login" render={(props) => <Login {...props} login={this.logIn}/> }/>
+        <Route exact path={`/${this.state.id}`} render={(props) => <Edit edit={this.edit} name={this.state.name} email={this.state.email}/> }/>
+        <Route component={My404} />
+      </Switch>
     );
   }
+}
+
+const My404 = () => {
+  return(
+    <div>
+      404: It seems you're lost..
+    </div>
+  )
 }
 
 export default App;

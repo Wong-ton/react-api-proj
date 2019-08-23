@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class Register extends React.Component {
     
@@ -72,8 +73,9 @@ class Register extends React.Component {
                         type="submit">
                             Submit
                     </button>
+                    <p>{this.state.message}</p>
+                    <p>Already have an account? <Link to="/login">Sign In</Link></p>
                 </form>
-                <p>{this.state.message}</p>
             </div>
         )
     }

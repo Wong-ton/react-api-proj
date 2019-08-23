@@ -17,12 +17,12 @@ class Register extends React.Component {
 
     submitHandler = async (e) => {
         e.preventDefault();
-        const data = new FormData();
-        data.append("name", this.state.name);
-        data.append("email", this.state.email);
-        data.append("password", this.state.password);
+        // const data = new FormData();
+        // data.append("name", this.state.name);
+        // data.append("email", this.state.email);
+        // data.append("password", this.state.password);
 
-        const registerCall = await this.props.register(data)
+        const registerCall = await this.props.register(this.state)
             if (registerCall.status.success){
             // this.props.history.push("/profile")
                 this.setState({
@@ -39,7 +39,7 @@ class Register extends React.Component {
         return(
             <div className="Register">
                 <form onSubmit={this.submitHandler}>
-                    Register
+                    <h2>Register</h2>
                     <br/>
                     <label>
                         <input 

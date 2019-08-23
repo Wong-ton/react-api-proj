@@ -14,15 +14,15 @@ class Login extends React.Component {
 
     submitHandler = async (e) => {
         e.preventDefault();
-        const data = new FormData();
-        data.append("email", this.state.email);
-        data.append("password", this.state.password);
+        // const data = new FormData();
+        // data.append("email", this.state.email);
+        // data.append("password", this.state.password);
 
-        const loginCall = await this.props.login(data);
+        const loginCall = await this.props.login(this.state);
             if (loginCall.status.success){
                 // this.props.history.push("/profile")
                 this.setState({
-                    message: "Logged in successfully"
+                    message: "Logged in successfully."
                 })
             } else {
                 this.setState({
@@ -36,7 +36,7 @@ class Login extends React.Component {
         return(
             <div className="Login">
                 <form onSubmit={this.submitHandler}>
-                    Login
+                    <h2>Login</h2>
                     <br/>
                     <input
                         type="text"
@@ -52,8 +52,7 @@ class Login extends React.Component {
                         placeholder="Your Password"
                         onChange={this.changeHandler} 
                     /><br/>
-                    <button 
-                        type="submit">
+                    <button type="submit">
                             Submit
                     </button>
                 </form>

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 class Login extends React.Component {
 
     state = {
+        id: "",
         email: "",
         password: "",
         message: "",
@@ -18,11 +19,12 @@ class Login extends React.Component {
         e.preventDefault();
         const loginCall = await this.props.login(this.state);
             if (loginCall.status.success){
-                this.props.history.push("/profile")
+                console.log(this.state)
+                this.props.history.push("/users/Profile")
                 this.setState({
                     message: "Logged in successfully."
                 })
-                redirec
+                
             } else {
                 this.setState({
                     message: "** Email or Password is incorrect. **"
@@ -55,9 +57,8 @@ class Login extends React.Component {
                             Submit
                     </button>
                 <p>{this.state.message}</p>
-                <p>Not a member? <Link to="/register">Register now</Link></p>
+                <p>Not a member? <Link to="/users/register">Register now</Link></p>
                 </form>
-                <br/><button href="/logout">Logout</button>
             </div>
         )
     }

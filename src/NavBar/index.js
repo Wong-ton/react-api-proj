@@ -35,16 +35,19 @@ const NavBar = ({ routes = [] }) => {
                         )
                     } */}
                     <Link exact to="/">Home</Link>
-                    <Link exact to="/register">Register</Link>
-                    <Link exact to="/login">Login</Link>
+                    <Link exact to="/users/register">Register</Link>
+                    <Link exact to="/users/login">Login</Link>
                     <Hamburger setOpen={setOpen} open={open}/>
                 </NavRight>
             </NavRow>
             <Overlay className={open ? "show" : "hide"}>
-                {
+                {/* {
                     routes.map(route =>
                         <Link exact to={`/${route}`}>{route}</Link>)
-                }
+                } */}
+                    <Link exact to="/">Home</Link>
+                    <Link exact to="/users/register">Register</Link>
+                    <Link exact to="/users/login">Login</Link>
             </Overlay>
         </NavContainer>
     )

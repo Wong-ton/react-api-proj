@@ -44,3 +44,25 @@ a:hover {
 .flexContainer {
   display: flex
 }
+
+form {
+  text-align: center;
+}
+
+input, ::placeholder {
+  font-size: 16px;
+  color: white;
+  background-color: royalblue;
+  height: 25px;
+  margin: 5px auto;
+  width: 80%;
+}
+
+button[type="submit"] {
+  text-transform: uppercase;
+  font-weight: bolder;
+  font-size: 16px;
+  height: 25px;
+  width: 80.5%;
+  margin: 5px;
+}

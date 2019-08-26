@@ -21,9 +21,8 @@ class Register extends React.Component {
         e.preventDefault();
 
         const registerCall = await this.props.register(this.state)
-        console.log(registerCall)
             if (registerCall.status.success){
-            // this.props.history.push("/profile")
+            this.props.history.push("/users/Login")
                 this.setState({
                     message: "Account created."
                 })
@@ -72,7 +71,7 @@ class Register extends React.Component {
                             Submit
                     </button>
                     <p>{this.state.message}</p>
-                    <p>Already have an account? <Link to="/login">Sign In</Link></p>
+                    <p>Already have an account? <Link to="/users/login">Sign In</Link></p>
                 </form>
             </div>
         )

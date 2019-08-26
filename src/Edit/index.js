@@ -4,11 +4,13 @@ import '../App.css';
 class Edit extends React.Component {
     
     state = {
+        id: "",
         name: "",
         email: "",
         password: "",
         new_password: "",
-        confirm_password: ""
+        confirm_password: "",
+        message: "",
     }
 
     changeHandler = (e) => {
@@ -28,14 +30,47 @@ class Edit extends React.Component {
                     message: "Passwords do not match."
                 })
             }
-
     }
+
+    // edit = async (data) => {
+    //     try {
+    //       const editResponse = await fetch(`http://localhost:8000/users/${this.props.id}/edit`, {
+    //         method: "PUT",
+    //         credentials: "include",
+    //         body: JSON.stringify(data),
+    //         headers: {
+    //           "Content-Type": "application/json"
+    //         }
+    //       })
+    //       console.log(editResponse, "this is editResponse!!!!!")
+    
+    //       const parsedResponse = await editResponse.json();
+    //       this.setState({
+    //         ...parsedResponse.data,
+    //       })
+    //       return parsedResponse;
+    //     } catch(err){
+    //       console.log(err)
+    //     }
+    //   }
+
+    // delete = async () => {
+    //     try {
+    //         await fetch(`http://localhost:8000/users/${this.props.id}/delete`)
+    //         await this.setState({
+    //             message: "Your account has been deleted."
+    //         })
+    //         await this.props.history.push("/users/Register")
+    //     }
+    //     catch(err){
+    //     console.log(err)
+    //     }
+    // }
 
     render(){
         return(
             <div className="Edit">
                 <h2>Edit User Details</h2>
-                <p>User ID: {this.props.id}</p>
                 <p>Name: {this.props.name}</p>
                 <p>E-mail: {this.props.email}</p>
                 <br/>
@@ -72,8 +107,9 @@ class Edit extends React.Component {
                         Submit Changes
                     </button>
                 </form>
-                <hr/>
-                <button type="onClick">Logout</button>
+                <br/>
+                <button onClick={this.props.delete}>Delete Account</button>
+                <p>{this.props.message}</p>
             </div>
         )
     }

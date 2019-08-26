@@ -19,12 +19,9 @@ class Register extends React.Component {
 
     submitHandler = async (e) => {
         e.preventDefault();
-        // const data = new FormData();
-        // data.append("name", this.state.name);
-        // data.append("email", this.state.email);
-        // data.append("password", this.state.password);
 
         const registerCall = await this.props.register(this.state)
+        console.log(registerCall)
             if (registerCall.status.success){
             // this.props.history.push("/profile")
                 this.setState({

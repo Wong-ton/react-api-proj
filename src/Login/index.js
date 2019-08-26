@@ -18,10 +18,11 @@ class Login extends React.Component {
         e.preventDefault();
         const loginCall = await this.props.login(this.state);
             if (loginCall.status.success){
-                // this.props.history.push("/profile")
+                this.props.history.push("/profile")
                 this.setState({
                     message: "Logged in successfully."
                 })
+                redirec
             } else {
                 this.setState({
                     message: "** Email or Password is incorrect. **"
@@ -56,6 +57,7 @@ class Login extends React.Component {
                 <p>{this.state.message}</p>
                 <p>Not a member? <Link to="/register">Register now</Link></p>
                 </form>
+                <br/><button href="/logout">Logout</button>
             </div>
         )
     }

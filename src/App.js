@@ -1,10 +1,13 @@
 import React from 'react';
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
+import NavBar from './NavBar';
+import { routes } from './NavBar/routes';
 import Register from './Register';
 import Login from './Login';
 import Edit from './Edit';
 import TrendingMovies from './Trending/movies';
+import TrendingShows from './Trending/shows';
 
 class App extends React.Component {
 
@@ -13,27 +16,24 @@ class App extends React.Component {
     name: "",
     email: "",
     loggedIn: false,
-    // trendingMovies: [],
   }
 
   // componentDidMount(){
-  //   this.getMovies()
-  // }
-  
-  // getMovies() {
-  //   fetch("https://api.themoviedb.org/3/trending/movie/day?api_key=76b7eb9d74b21ff2bf120a4499967ac6")
-  //     .then(response => {
-  //       return response.json()
+  //   const user = localStorage.getItem("movie_user")
+  //   console.log(user)
+  //   const parsedUser = JSON.parse(user)
+  //   if (user) {
+  //     this.setState({
+  //       name: parsedUser.name,
+  //       email: parsedUser.email,
   //     })
-  //     .then(data => {
-  //       this.setState({ trendingMovies: data.results })
-  //       console.log(this.state.trendingMovies)
-  //     })
+  //   }
   // }
+
 
   logIn = async (data) => {
     try {
-      const loginResponse = await fetch("http://localhost:8000/users/login", {
+      const logInResponse = await fetch("http://localhost:8000/users/login", {
         method: "POST",
         credentials: "include",
         body: JSON.stringify(data),
@@ -42,13 +42,31 @@ class App extends React.Component {
         }
       })
 
-      const parsedResponse = await loginResponse.json();
+      const parsedResponse = await logInResponse.json();
+      localStorage.setItem("movie_user", JSON.stringify(parsedResponse.data))
       this.setState({
         ...parsedResponse.data,
         loggedIn: true,
       })
       return parsedResponse
     
+    } catch(err){
+      console.log(err)
+    }
+  }
+  
+
+  logOut = async () => {
+    try {
+      await fetch("http://localhost:8000/users/logout", {
+        method: "DESTROY"
+      })
+      
+      await localStorage.removeItem("movie_user");
+      this.setState({
+        loggedIn: false,
+      })
+
     } catch(err){
       console.log(err)
     }
@@ -81,7 +99,7 @@ class App extends React.Component {
 
   edit = async (data) => {
     try {
-      const editResponse = await fetch(`http://localhost:8000/users/${this.state.id}`, {
+      const editResponse = await fetch(`http://localhost:8000/users/${this.state.id}/edit`, {
         method: "PUT",
         credentials: "include",
         body: JSON.stringify(data),
@@ -103,13 +121,20 @@ class App extends React.Component {
 
   render(){
     return (
-      <Switch>
-        <Route exact path="/trending/movies" render={(props) => <TrendingMovies {...props} movies={this.state.trendingMovies}/> }/>
-        <Route exact path="/register" render={(props) => <Register {...props} register={this.register}/> }/>
-        <Route exact path="/login" render={(props) => <Login {...props} login={this.logIn}/> }/>
-        <Route exact path={`/${this.state.id}`} render={(props) => <Edit edit={this.edit} name={this.state.name} email={this.state.email}/> }/>
-        <Route component={My404} />
-      </Switch>
+      <div>
+        <NavBar routes={routes}/>
+          <Switch>
+            {/* { routes.map(route =>
+            <Route exact path={`/${route}`} render={() => <div>{route}</div>} />
+            )} */}
+            <Route exact path="/trending/shows" render={(props) => <TrendingShows {...props} movies={this.state.trendingMovies}/> }/>
+            <Route exact path="/trending/movies" render={(props) => <TrendingMovies {...props} movies={this.state.trendingMovies}/> }/>
+            <Route exact path="/register" render={(props) => <Register {...props} register={this.register}/> }/>
+            <Route exact path="/login" render={(props) => <Login {...props} login={this.logIn} logout={this.logOut}/> }/>
+            <Route exact path={"/users/:id/edit"} render={(props) => <Edit {...props} edit={this.edit} state={this.state}/> }/>
+            <Route component={My404} />
+          </Switch>
+      </div>
     );
   }
 }
@@ -117,7 +142,8 @@ class App extends React.Component {
 const My404 = () => {
   return(
     <div>
-      404: It seems you're lost..
+      <h1>ERROR 404: It seems you're lost..</h1>
+      <h3><a href="/trending/movies">Back to Home Page</a></h3>
     </div>
   )
 }

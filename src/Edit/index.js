@@ -35,6 +35,7 @@ class Edit extends React.Component {
         return(
             <div className="Edit">
                 <h2>Edit User Details</h2>
+                <p>User ID: {this.props.id}</p>
                 <p>Name: {this.props.name}</p>
                 <p>E-mail: {this.props.email}</p>
                 <br/>
@@ -71,6 +72,8 @@ class Edit extends React.Component {
                         Submit Changes
                     </button>
                 </form>
+                <hr/>
+                <button type="onClick">Logout</button>
             </div>
         )
     }

@@ -34,7 +34,7 @@ class Edit extends React.Component {
 
     // edit = async (data) => {
     //     try {
-    //       const editResponse = await fetch(`http://localhost:8000/users/${this.props.id}/edit`, {
+    //       const editResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${this.props.id}/edit`, {
     //         method: "PUT",
     //         credentials: "include",
     //         body: JSON.stringify(data),
@@ -56,7 +56,7 @@ class Edit extends React.Component {
 
     // delete = async () => {
     //     try {
-    //         await fetch(`http://localhost:8000/users/${this.props.id}/delete`)
+    //         await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${this.props.id}/delete`)
     //         await this.setState({
     //             message: "Your account has been deleted."
     //         })

@@ -34,7 +34,7 @@ class App extends React.Component {
 
   logIn = async (data) => {
     try {
-      const logInResponse = await fetch("http://localhost:8000/users/login", {
+      const logInResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/login`, {
         method: "POST",
         credentials: "include",
         body: JSON.stringify(data),
@@ -59,7 +59,7 @@ class App extends React.Component {
 
   register = async (data) => {
     try {
-     const registerResponse = await fetch("http://localhost:8000/users/register", {
+     const registerResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/register`, {
        method: "POST",
        credentials: "include",
        body: JSON.stringify(data),
@@ -83,7 +83,7 @@ class App extends React.Component {
 
   edit = async (data) => {
     try {
-      const editResponse = await fetch(`http://localhost:8000/users/${this.state.id}/edit`, {
+      const editResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${this.state.id}/edit`, {
         method: "PUT",
         credentials: "include",
         body: JSON.stringify(data),
@@ -105,7 +105,7 @@ class App extends React.Component {
 
   delete = async () => {
     try {
-        await fetch(`http://localhost:8000/users/${this.state.id}/delete`)
+        await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${this.state.id}/delete`)
         await this.setState({
             message: "Your account has been deleted."
         })

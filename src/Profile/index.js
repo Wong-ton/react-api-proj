@@ -11,7 +11,7 @@ class Profile extends React.Component {
 
     logOut = async () => {
         try {
-          await fetch("http://localhost:8000/users/logout")
+          await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/logout`)
           localStorage.clear()
           this.props.history.push("/users/login")
         }

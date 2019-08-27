@@ -2,8 +2,14 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 export const NavContainer = styled.div`
-  background-color: ${props => props.color ? props.color : "black"};
-  border-bottom: 1px solid black;
+  background-color: ${props => props.color ? props.color : "black"}; 
+  background: linear-gradient(90deg, rgba(83,58,123,1) 0%, rgba(98,60,234,1) 100%);
+  border-bottom: 2px solid black;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 120px;
+
 `
 
 export const NavRow = styled.div`
@@ -16,11 +22,15 @@ export const NavRow = styled.div`
 `
 
 export const NavLeft = styled.div`
-  width: 33.333%;
+  width: 25%
+  font-family: 'Righteous', cursive;
+  font-size: 1.7em;
+  text-shadow: 5px 7px black;
+  margin: 0 25px;
 `
 
 export const NavMiddle = styled.div`
-  width: 33.333%;
+  width: 50%;
 `
 
 export const NavRight = styled.div`
@@ -40,13 +50,14 @@ export const Link = styled(NavLink)`
   color: black;
   &:hover {
     color: lightblue;
+    text-decoration: underline overline black;
   }
   &.active{
     border-bottom: 1px solid black;
   }
   .show > &.active {
     border-bottom: none;
-    color: gold;
+    color: #623CEA;
   }
 `
 

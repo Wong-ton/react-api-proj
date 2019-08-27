@@ -19,33 +19,24 @@ const NavBar = ({ routes = [] }) => {
     window.onresize = () => (window.innerWidth > 900 && open) && setOpen(false)
 
     return(
-        <NavContainer color={"royalblue"}>
-            <button className="btn">Logo</button>
+        <NavContainer>
             <NavRow>
                 <NavLeft>
-                    <p>Hi there</p>
+                    <h1 className="logo">WEBFLIX</h1>
                 </NavLeft>
                 <NavMiddle>
-                    <p>Hello</p>
                 </NavMiddle>
                 <NavRight>
-                    {/* {
-                        routes.map(route =>
-                            <Link exact to={`/${route}`}>{route}</Link>
-                        )
-                    } */}
-                    <Link exact to="/">Home</Link>
+                    <Link exact to="/trending/movies">Movies</Link>
+                    <Link exact to="/trending/shows">Shows</Link>
                     <Link exact to="/users/register">Register</Link>
                     <Link exact to="/users/login">Login</Link>
                     <Hamburger setOpen={setOpen} open={open}/>
                 </NavRight>
             </NavRow>
             <Overlay className={open ? "show" : "hide"}>
-                {/* {
-                    routes.map(route =>
-                        <Link exact to={`/${route}`}>{route}</Link>)
-                } */}
-                    <Link exact to="/">Home</Link>
+                    <Link exact to="/trending/movies">Movies</Link>
+                    <Link exact to="/trending/shows">Shows</Link>
                     <Link exact to="/users/register">Register</Link>
                     <Link exact to="/users/login">Login</Link>
             </Overlay>

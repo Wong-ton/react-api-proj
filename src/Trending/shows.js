@@ -38,24 +38,25 @@ class TrendingShows extends React.Component {
     render(){
         this.getOneShow('299534')
         return(
-            <div>
-            <h1>Trending Shows</h1>
-            <p><h3><a href="/trending/movies">Go To Trending Movies</a></h3></p>
-            <ol>
-                {console.log(this.state.trendingShows)}
-                {this.state.trendingShows.map((s, i) => {
-                    return(
-                        <div className="flickContainer">
-                            <img src={`https://image.tmdb.org/t/p/w185/${s.poster_path}`} />
-                            <li>
-                            <h4 key={i}>{s.name}</h4>
-                            {/* <br/>{m.overview} */}
-                            </li>
-                        <button onClick={() => this.getOneShow(s)}>Add</button>
-                        </div>  
-                    )
-                })}
-            </ol>
+            <div className="flexContainer">
+                <h1>Trending Shows</h1>
+
+                <br/><h3><a className="goTo" href="/trending/movies">Go To Trending Movies</a></h3>
+                
+                    {console.log(this.state.trendingShows)}
+                    {this.state.trendingShows.map((s, i) => {
+                        return(
+                            <div key={i} className="flickContainer">
+                                <br/>
+                                <img src={`https://image.tmdb.org/t/p/w185/${s.poster_path}`} />
+                                <li>
+                                <h4 className="flickTitle">{s.name}</h4>
+                                </li>
+                                
+                            <button className="fave" onClick={() => this.getOneShow(s)}>Add To Favorites</button>
+                            </div>  
+                        )
+                    })}
             </div>
         )
     }

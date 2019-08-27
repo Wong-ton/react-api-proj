@@ -22,10 +22,10 @@ class Register extends React.Component {
 
         const registerCall = await this.props.register(this.state)
             if (registerCall.status.success){
-            this.props.history.push("/users/Login")
                 this.setState({
                     message: "Account created."
                 })
+                this.props.history.push("/users/Login")
             } else {
                 this.setState({
                     message: "** This e-mail already exists. **"
@@ -35,7 +35,7 @@ class Register extends React.Component {
 
     render(){
         return(
-            <div className="Register">
+            <div className="register">
                 <form onSubmit={this.submitHandler}>
                     <h2>Register</h2>
                     <br/>
@@ -65,10 +65,9 @@ class Register extends React.Component {
                             placeholder="Enter Password"
                             onChange={this.changeHandler} 
                         />
-                    </label><br/>
-                    <button 
-                        type="submit">
-                            Submit
+                    </label><br/><br/>
+                    <button type="submit">
+                            Sign Up
                     </button>
                     <p>{this.state.message}</p>
                     <p>Already have an account? <Link to="/users/login">Sign In</Link></p>

@@ -20,7 +20,7 @@ class Edit extends React.Component {
     submitHandler = async (e) => {
         e.preventDefault();
 
-        const editCall = await this.props.edit(this.state);
+        const editCall = await this.edit(this.state);
             if (editCall.status.success){
                 this.setState({
                     message: "User details updated."
@@ -32,44 +32,48 @@ class Edit extends React.Component {
             }
     }
 
-    // edit = async (data) => {
-    //     try {
-    //       const editResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${this.props.id}/edit`, {
-    //         method: "PUT",
-    //         credentials: "include",
-    //         body: JSON.stringify(data),
-    //         headers: {
-    //           "Content-Type": "application/json"
-    //         }
-    //       })
-    //       console.log(editResponse, "this is editResponse!!!!!")
+    edit = async (data) => {
+        try {
+          const editResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${this.props.id}/edit`, {
+            method: "PUT",
+            credentials: "include",
+            body: JSON.stringify(data),
+            mode: "no-cors",
+            headers: {
+              "Content-Type": "application/json"
+            }
+          })
+          console.log(editResponse, "this is editResponse!!!!!")
     
-    //       const parsedResponse = await editResponse.json();
-    //       this.setState({
-    //         ...parsedResponse.data,
-    //       })
-    //       return parsedResponse;
-    //     } catch(err){
-    //       console.log(err)
-    //     }
-    //   }
+          const parsedResponse = await editResponse.json();
+          this.setState({
+            ...parsedResponse.data,
+          })
+          return parsedResponse;
+        } catch(err){
+          console.log(err)
+        }
+      }
 
-    // delete = async () => {
-    //     try {
-    //         await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${this.props.id}/delete`)
-    //         await this.setState({
-    //             message: "Your account has been deleted."
-    //         })
-    //         await this.props.history.push("/users/Register")
-    //     }
-    //     catch(err){
-    //     console.log(err)
-    //     }
-    // }
+    delete = async () => {
+        try {
+            await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${this.props.id}`, {
+                method: "DELETE",
+                credentials: "include",
+            })
+            this.setState({
+                message: "Your account has been deleted."
+            })
+            this.props.history.push("/users/Register")
+        }
+        catch(err){
+        console.log(err)
+        }
+    }
 
     render(){
         return(
-            <div className="Edit">
+            <div className="edit">
                 <h2>Edit User Details</h2>
                 <p>Name: {this.props.name}</p>
                 <p>E-mail: {this.props.email}</p>
@@ -108,7 +112,7 @@ class Edit extends React.Component {
                     </button>
                 </form>
                 <br/>
-                <button onClick={this.props.delete}>Delete Account</button>
+                <button onClick={this.delete}>Delete Account</button>
                 <p>{this.props.message}</p>
             </div>
         )

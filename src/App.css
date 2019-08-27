@@ -2,12 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -23,26 +17,59 @@
   color: #61dafb;
 }
 
-h1,h2,h3 {
-  text-align: center
+body {
+  background: #3A405A;
+  color: white;
+  padding-top: 130px;
 }
 
-a:hover {
+h1,h2 {
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+ol, ul, li {
+  list-style: none;
+}
+
+a, a:hover, a:visited {
+  color: white;
   text-decoration: underline;
+  font-weight: bold;
 }
 
-.flickContainer {
-  width: 250px;
-  height: 400px;
-  margin: 0 auto;
-  display: inline-block;
-  border: 1px solid black;
-  padding: 10px;
-  justify-content: center;
+.goTo, .goTo:hover {
+  background: linear-gradient(90deg, rgba(83,58,123,1) 0%, rgba(98,60,234,1) 100%);
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 1em 1.5em;
+  box-shadow: 0 2px 0 black;
 }
 
 .flexContainer {
-  display: flex
+  text-align: center;
+}
+
+.flickContainer {
+  width: 300px;
+  height: auto;
+  margin: 0 auto;
+  display: inline-block;
+  padding: 15px 0;
+}
+
+img {
+  box-shadow: 0 6px 12px 0 black;
+}
+
+.flickTitle {
+  height: 50px;
+}
+
+.register, .login, .profile, .edit {
+  width: 500px;
+  margin: 0 auto;
+  clear: both;
 }
 
 form {
@@ -50,19 +77,40 @@ form {
 }
 
 input, ::placeholder {
-  font-size: 16px;
+  font-size: 1em;
   color: white;
-  background-color: royalblue;
-  height: 25px;
+  background-color: #623CEA;
+  height: 30px;
+  width: 100%;
   margin: 5px auto;
-  width: 80%;
+  padding: 4px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 10px;
+}
+
+.fave {
+  /* background: linear-gradient(90deg, rgba(83,58,123,1) 0%, rgba(98,60,234,1) 100%); */
+  background: #623CEA;
+  color: white;
+  height: 30px;
+  font-size: 0.8em;
 }
 
 button[type="submit"] {
+  background-color: white;
   text-transform: uppercase;
   font-weight: bolder;
   font-size: 16px;
-  height: 25px;
-  width: 80.5%;
-  margin: 5px;
+  height: 30px;
+  width: 80%;
+  text-align: center;
+  box-sizing: border-box;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+button:hover, .goTo:hover, a:hover {
+  opacity: 0.7;
+  cursor: pointer;
 }

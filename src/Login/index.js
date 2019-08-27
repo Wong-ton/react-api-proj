@@ -20,10 +20,10 @@ class Login extends React.Component {
         const loginCall = await this.props.login(this.state);
             if (loginCall.status.success){
                 console.log(this.state)
-                this.props.history.push("/users/Profile")
                 this.setState({
                     message: "Logged in successfully."
                 })
+                this.props.history.push("/users/Profile")
                 
             } else {
                 this.setState({
@@ -35,24 +35,26 @@ class Login extends React.Component {
 
     render(){
         return(
-            <div className="Login">
+            <div className="login">
                 <form onSubmit={this.submitHandler}>
                     <h2>Login</h2>
                     <br/>
+                    E-mail Address<br/>
                     <input
                         type="text"
                         name="email"
                         value={this.state.email}
-                        placeholder="Your E-mail"
+                        placeholder="Enter E-mail"
                         onChange={this.changeHandler} 
                     /><br/>
+                    Password<br/>
                     <input
                         type="password"
                         name="password"
                         value={this.state.password}
-                        placeholder="Your Password"
+                        placeholder="Enter Password"
                         onChange={this.changeHandler} 
-                    /><br/>
+                    /><br/><br/>
                     <button type="submit">
                             Submit
                     </button>

@@ -11,17 +11,22 @@ class TrendingMovies extends React.Component {
         this.getMovies();
     }
 
+
     getMovies() {
         fetch("https://api.themoviedb.org/3/trending/movie/day?api_key=76b7eb9d74b21ff2bf120a4499967ac6")
           .then(response => {
             return response.json()
-          })
+          })    
           .then(data => {
+              console.log(data)
             this.setState({ trendingMovies: data.results })
           })
       }
 
     getOneMovie = async (movie) => {
+        // const data = new FormData();
+        // data.append()
+
         // const favMovies = ['299534', "504608", '449562'] // call to the database to get all the users fav movies
         // const allUserMovies = await Promise.all(favMovies.map(async (i) => {
         //     const reqMovie = await fetch(`https://api.themoviedb.org/3/movie/${i}?api_key=76b7eb9d74b21ff2bf120a4499967ac6`)
@@ -33,6 +38,7 @@ class TrendingMovies extends React.Component {
         // const movies = await reqMovie.json()
         // console.log(movies)
         console.log(movie)
+        // POST ROUTE
     }
 
     render(){
@@ -40,22 +46,23 @@ class TrendingMovies extends React.Component {
         return(
             <div className="flexContainer">
             <h1>Trending Movies</h1>
-            <p><h3><a href="/trending/shows">Go To Trending Shows</a></h3></p>
-            <ol>
+            
+            <br/><h3><a className="goTo" href="/trending/shows">Go To Trending Shows</a></h3>
+            
                 {console.log(this.state.trendingMovies)}
                 {this.state.trendingMovies.map((m, i) => {
                     return(
-                        <div className="flickContainer">
+                        <div key={i} className="flickContainer">
+                            <br/>
                             <img src={`https://image.tmdb.org/t/p/w185/${m.poster_path}`} />
-                            <li key={i}>
-                            <h4>{m.original_title}</h4>
-                            {/* <br/>{m.overview} */}
+                            <li>
+                            <h4 className="flickTitle">{m.title}</h4> 
+                            <button className="fave" onClick={() => this.getOneMovie(m)}>Add To Favorites</button>
+                            <br/><br/>
                             </li>
-                        <button onClick={() => this.getOneMovie(m)}>Add</button>
                         </div>  
                     )
                 })}
-            </ol>
             </div>
         )
     }

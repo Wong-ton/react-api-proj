@@ -22,7 +22,7 @@ class Profile extends React.Component {
 
     render(){
         return(
-            <div className="profile">
+            <div className="p   rofile">
                 <h4>Name: {this.props.name}</h4>
                 <h4>E-mail: {this.props.email}</h4>
                 <button onClick={this.logOut}>Logout</button>

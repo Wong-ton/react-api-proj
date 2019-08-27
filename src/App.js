@@ -87,11 +87,12 @@ class App extends React.Component {
         method: "PUT",
         credentials: "include",
         body: JSON.stringify(data),
+        mode: "no-cors",
         headers: {
           "Content-Type": "application/json"
         }
       })
-      console.log(editResponse, "this is editResponse!!!!!")
+      console.log(editResponse, "this is editResponse!!")
 
       const parsedResponse = await editResponse.json();
       this.setState({
@@ -103,18 +104,18 @@ class App extends React.Component {
     }
   }
 
-  delete = async () => {
-    try {
-        await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${this.state.id}/delete`)
-        await this.setState({
-            message: "Your account has been deleted."
-        })
-        await this.props.history.push("/users/Register")
-    }
-    catch(err){
-    console.log(err)
-    }
-}
+//   delete = async () => {
+//     try {
+//         await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${this.state.id}/delete`)
+//         await this.setState({
+//             message: "Your account has been deleted."
+//         })
+//         await this.props.history.push("/users/Register")
+//     }
+//     catch(err){
+//     console.log(err)
+//     }
+// }
 
   render(){
     return (
@@ -129,7 +130,7 @@ class App extends React.Component {
             <Route exact path="/users/register" render={(props) => <Register {...props} register={this.register}/> }/>
             <Route exact path="/users/login" render={(props) => <Login {...props} login={this.logIn} logout={this.logOut}/> }/>
             <Route exact path="/users/profile" render={(props) => <Profile {...props} name={this.state.name} email={this.state.email} id={this.state.id}/> }/>
-            <Route exact path={"/users/:id/edit"} render={(props) => <Edit {...props} edit={this.edit} delete={this.delete} name={this.state.name} email={this.state.email} id={this.state.id}/> }/>
+            <Route exact path={"/users/:id/edit"} render={(props) => <Edit {...props} name={this.state.name} email={this.state.email} id={this.state.id}/> }/>
             <Route component={My404} />
           </Switch>
       </div>

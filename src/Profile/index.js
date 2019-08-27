@@ -22,12 +22,12 @@ class Profile extends React.Component {
 
     render(){
         return(
-            <div className="p   rofile">
+            <div className="profile">
                 <h4>Name: {this.props.name}</h4>
                 <h4>E-mail: {this.props.email}</h4>
-                <button onClick={this.logOut}>Logout</button>
+                <button className="logoutButton" onClick={this.logOut}>Logout</button>
                 <Link to={`/users/${this.props.id}/edit`}>
-                <button type="button">Edit Account</button>
+                <button className ="editButton">Edit Account</button>
                 </Link>
             </div>
         )

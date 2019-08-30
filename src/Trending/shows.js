@@ -13,6 +13,10 @@ class TrendingShows extends React.Component {
         this.getShows();
     }
 
+    getOneShow = async (show) => {
+        console.log(show)
+    }
+
     getShows() {
         fetch(`https://api.themoviedb.org/3/trending/tv/day?api_key=76b7eb9d74b21ff2bf120a4499967ac6&page=${this.state.page}`)
           .then(response => {

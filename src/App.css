@@ -57,6 +57,7 @@ a, a:hover, a:visited {
   text-transform: uppercase;
   padding: 1em 1.5em;
   box-shadow: 0 2px 0 black;
+  width: 130px;
 }
 
 .pages:disabled {

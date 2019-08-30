@@ -10,9 +10,8 @@ class TrendingMovies extends React.Component {
     }
 
     componentDidMount(){
-        this.getMovies();
+        this.getMovies();   
     }
-
 
     getMovies() {
         fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=76b7eb9d74b21ff2bf120a4499967ac6&page=${this.state.page}`)

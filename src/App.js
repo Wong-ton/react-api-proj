@@ -9,6 +9,7 @@ import Edit from './Edit';
 import Profile from './Profile'
 import TrendingMovies from './Trending/movies';
 import TrendingShows from './Trending/shows';
+import Movie from './Movie'
 
 class App extends React.Component {
 
@@ -16,21 +17,7 @@ class App extends React.Component {
     id: "",
     name: "",
     email: "",
-    loggedIn: false,
   }
-
-  // componentDidMount(){
-  //   const user = localStorage.getItem("movie_user")
-  //   console.log(user)
-  //   const parsedUser = JSON.parse(user)
-  //   if (user) {
-  //     this.setState({
-  //       name: parsedUser.name,
-  //       email: parsedUser.email,
-  //     })
-  //   }
-  // }
-
 
   logIn = async (data) => {
     try {
@@ -87,7 +74,6 @@ class App extends React.Component {
         method: "PUT",
         credentials: "include",
         body: JSON.stringify(data),
-        mode: "no-cors",
         headers: {
           "Content-Type": "application/json"
         }
@@ -104,39 +90,33 @@ class App extends React.Component {
     }
   }
 
-//   delete = async () => {
-//     try {
-//         await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${this.state.id}/delete`)
-//         await this.setState({
-//             message: "Your account has been deleted."
-//         })
-//         await this.props.history.push("/users/Register")
-//     }
-//     catch(err){
-//     console.log(err)
-//     }
-// }
+  updateUser = (user) => {
+    this.setState({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    })
+  }
 
   render(){
     return (
       <div>
         <NavBar routes={routes}/>
           <Switch>
-            {/* { routes.map(route =>
-            <Route exact path={`/${route}`} render={() => <div>{route}</div>} />
-            )} */}
             <Route exact path="/trending/shows" render={(props) => <TrendingShows {...props} shows={this.state.trendingMovies}/> }/>
             <Route exact path="/trending/movies" render={(props) => <TrendingMovies {...props} movies={this.state.trendingMovies}/> }/>
             <Route exact path="/users/register" render={(props) => <Register {...props} register={this.register}/> }/>
             <Route exact path="/users/login" render={(props) => <Login {...props} login={this.logIn} logout={this.logOut}/> }/>
             <Route exact path="/users/profile" render={(props) => <Profile {...props} name={this.state.name} email={this.state.email} id={this.state.id}/> }/>
-            <Route exact path={"/users/:id/edit"} render={(props) => <Edit {...props} name={this.state.name} email={this.state.email} id={this.state.id}/> }/>
+            <Route exact path={"/users/:id/edit"} render={(props) => <Edit {...props} name={this.state.name} email={this.state.email} id={this.state.id} updateUser={this.updateUser}/> }/>
+            <Route exact path={"/movie/:id"} render={props => <Movie {...props}/>} />
             <Route component={My404} />
           </Switch>
       </div>
     );
   }
 }
+
 
 const My404 = () => {
   return(

@@ -19,17 +19,19 @@ class Edit extends React.Component {
 
     submitHandler = async (e) => {
         e.preventDefault();
-
         const editCall = await this.edit(this.state);
-            if (editCall.status.success){
-                this.setState({
-                    message: "User details updated."
-                })
-            } else {
-                this.setState({
-                    message: "Passwords do not match."
-                })
-            }
+        if (editCall.status.success){
+            this.props.updateUser(editCall.data)
+            this.setState({
+                password: "",
+                new_password: "",
+                confirm_password: "",
+            })
+        } else {
+            this.setState({
+                message: "Passwords do not match."
+            })
+        }
     }
 
     edit = async (data) => {
@@ -38,7 +40,6 @@ class Edit extends React.Component {
             method: "PUT",
             credentials: "include",
             body: JSON.stringify(data),
-            mode: "no-cors",
             headers: {
               "Content-Type": "application/json"
             }
@@ -46,6 +47,7 @@ class Edit extends React.Component {
           console.log(editResponse, "this is editResponse!!!!!")
     
           const parsedResponse = await editResponse.json();
+          delete parsedResponse.data.password
           this.setState({
             ...parsedResponse.data,
           })
@@ -106,13 +108,13 @@ class Edit extends React.Component {
                         value={this.state.confirm_password}
                         placeholder="Confirm New Password"
                         onChange={this.changeHandler}
-                    /><br/>
+                    /><br/><br/>
                     <button type="submit">
                         Submit Changes
                     </button>
                 </form>
                 <br/>
-                <button onClick={this.delete}>Delete Account</button>
+                <button className="deleteButton" onClick={this.delete}>Delete Account</button>
                 <p>{this.props.message}</p>
             </div>
         )

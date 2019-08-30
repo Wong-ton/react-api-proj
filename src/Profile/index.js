@@ -26,6 +26,7 @@ class Profile extends React.Component {
                 <h4>Name: {this.props.name}</h4>
                 <h4>E-mail: {this.props.email}</h4>
                 <button className="logoutButton" onClick={this.logOut}>Logout</button>
+                <br/><br/>
                 <Link to={`/users/${this.props.id}/edit`}>
                 <button className ="editButton">Edit Account</button>
                 </Link>

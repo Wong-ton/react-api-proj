@@ -1,10 +1,12 @@
 import React from 'react';
 import '../App.css';
+import { Link } from 'react-router-dom'
 
 class TrendingMovies extends React.Component {
 
     state = {
         trendingMovies: [],
+        page: 1
     }
 
     componentDidMount(){
@@ -13,12 +15,12 @@ class TrendingMovies extends React.Component {
 
 
     getMovies() {
-        fetch("https://api.themoviedb.org/3/trending/movie/day?api_key=76b7eb9d74b21ff2bf120a4499967ac6")
+        fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=76b7eb9d74b21ff2bf120a4499967ac6&page=${this.state.page}`)
           .then(response => {
             return response.json()
           })    
           .then(data => {
-              console.log(data)
+              console.log(data)     
             this.setState({ trendingMovies: data.results })
           })
       }
@@ -41,28 +43,47 @@ class TrendingMovies extends React.Component {
         // POST ROUTE
     }
 
+    previousPage = () => {
+        if(this.state.page > 1 ) {
+            this.setState({
+                page: this.state.page - 1
+            }, () => this.getMovies())
+        }
+    }
+
+    nextPage = () => {
+        this.setState({
+            page: this.state.page + 1
+        }, () => this.getMovies())
+    }
+
     render(){
-        this.getOneMovie('299534')
         return(
             <div className="flexContainer">
             <h1>Trending Movies</h1>
             
             <br/><h3><a className="goTo" href="/trending/shows">Go To Trending Shows</a></h3>
             
-                {console.log(this.state.trendingMovies)}
-                {this.state.trendingMovies.map((m, i) => {
-                    return(
-                        <div key={i} className="flickContainer">
-                            <br/>
-                            <img src={`https://image.tmdb.org/t/p/w185/${m.poster_path}`} />
-                            <li>
-                            <h4 className="flickTitle">{m.title}</h4> 
-                            <button className="fave" onClick={() => this.getOneMovie(m)}>Add To Favorites</button>
-                            <br/><br/>
-                            </li>
-                        </div>  
-                    )
-                })}
+                    {console.log(this.state.trendingMovies)}
+                    {this.state.trendingMovies.map((m, i) => {
+                        return(
+                            <div key={i} className="flickContainer">
+                                <br/>
+                                <li>
+                                  <Link to={`/movie/${m.id}`}>
+                                  <img src={`https://image.tmdb.org/t/p/w185/${m.poster_path}`} />
+                                  <h4 className="flickTitle">{m.title}</h4> 
+                                  </Link>
+                                  <button className="fave" onClick={() => this.getOneMovie(m)}>Add To Favorites</button>
+                                <br/><br/>
+                                </li>
+                            </div>  
+                        )
+                    })}
+                <br/><br/>
+                <button className="pages" onClick={() => this.previousPage()} disabled={this.state.page <= 1}>Previous</button>
+                <button className="pages" onClick={() => this.nextPage()}>Next</button>
+                <br/><br/>
             </div>
         )
     }

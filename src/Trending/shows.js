@@ -1,10 +1,12 @@
 import React from 'react';
 import '../App.css';
+import { Link } from 'react-router-dom';
 
 class TrendingShows extends React.Component {
 
     state = {
         trendingShows: [],
+        page: 1
     }
 
     componentDidMount(){
@@ -12,7 +14,7 @@ class TrendingShows extends React.Component {
     }
 
     getShows() {
-        fetch("https://api.themoviedb.org/3/trending/tv/day?api_key=76b7eb9d74b21ff2bf120a4499967ac6")
+        fetch(`https://api.themoviedb.org/3/trending/tv/day?api_key=76b7eb9d74b21ff2bf120a4499967ac6&page=${this.state.page}`)
           .then(response => {
             return response.json()
           })
@@ -20,6 +22,20 @@ class TrendingShows extends React.Component {
             this.setState({ trendingShows: data.results })
           })
       }
+
+    previousPage = () => {
+        if(this.state.page > 1 ) {
+            this.setState({
+                page: this.state.page - 1
+            }, () => this.getShows())
+        }
+    }
+
+    nextPage = () => {
+        this.setState({
+            page: this.state.page + 1
+        }, () => this.getShows())
+    }
 
     getOneShow = async (show) => {
         // const favMovies = ['299534', "504608", '449562'] // call to the database to get all the users fav movies
@@ -36,7 +52,6 @@ class TrendingShows extends React.Component {
     }
 
     render(){
-        this.getOneShow('299534')
         return(
             <div className="flexContainer">
                 <h1>Trending Shows</h1>
@@ -48,15 +63,21 @@ class TrendingShows extends React.Component {
                         return(
                             <div key={i} className="flickContainer">
                                 <br/>
-                                <img src={`https://image.tmdb.org/t/p/w185/${s.poster_path}`} />
                                 <li>
-                                <h4 className="flickTitle">{s.name}</h4>
+                                  <Link to={`/show/${s.id}`}>
+                                  <img src={`https://image.tmdb.org/t/p/w185/${s.poster_path}`} />
+                                  <h4 className="flickTitle">{s.name}</h4>
+                                  </Link>
+                                  <button className="fave" onClick={() => this.getOneShow(s)}>Add To Favorites</button>
+                                <br/><br/>
                                 </li>
-                                
-                            <button className="fave" onClick={() => this.getOneShow(s)}>Add To Favorites</button>
                             </div>  
                         )
                     })}
+                <br/><br/>
+                <button className="pages" onClick={() => this.previousPage()} disabled={this.state.page <= 1}>Previous</button>
+                <button className="pages" onClick={() => this.nextPage()}>Next</button>
+                <br/><br/>
             </div>
         )
     }

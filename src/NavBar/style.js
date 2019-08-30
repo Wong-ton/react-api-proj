@@ -8,7 +8,7 @@ export const NavContainer = styled.div`
   position: fixed;
   top: 0;
   width: 100%;
-  height: 120px;
+  height: 128px;
 
 `
 
@@ -53,7 +53,7 @@ export const Link = styled(NavLink)`
     text-decoration: underline overline black;
   }
   &.active{
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid black;
   }
   .show > &.active {
     border-bottom: none;

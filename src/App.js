@@ -9,7 +9,8 @@ import Edit from './Edit';
 import Profile from './Profile'
 import TrendingMovies from './Trending/movies';
 import TrendingShows from './Trending/shows';
-import Movie from './Movie'
+import Movie from './Movie';
+import Show from './Show';
 
 class App extends React.Component {
 
@@ -110,6 +111,8 @@ class App extends React.Component {
             <Route exact path="/users/profile" render={(props) => <Profile {...props} name={this.state.name} email={this.state.email} id={this.state.id}/> }/>
             <Route exact path={"/users/:id/edit"} render={(props) => <Edit {...props} name={this.state.name} email={this.state.email} id={this.state.id} updateUser={this.updateUser}/> }/>
             <Route exact path={"/movie/:id"} render={props => <Movie {...props}/>} />
+            <Route exact path={"/show/:id"} render={props => <Show {...props}/>} />
+            <Route exact path={"/"} render={props => <TrendingMovies {...props} movies={this.state.trendingMovies}/> }/>
             <Route component={My404} />
           </Switch>
       </div>

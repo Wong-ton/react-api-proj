@@ -3,8 +3,9 @@ import TrendingMovies from '../Trending/movies';
 
 class Movie extends Component {
     state = {
-        movie: {}
+        movie: {},
     }
+
 
     async componentDidMount() {
         const id = this.props.match.params.id
@@ -14,20 +15,22 @@ class Movie extends Component {
         const movie = await req.json()
         console.log(movie)
         this.setState({
-            movie
+            movie,
         })
     }
+
     render() {
         return(
-        
+            
             <div className="flickFlexBox">
               <img src={`https://image.tmdb.org/t/p/w342/${this.state.movie.poster_path}`} />
               <div className="flickDetails">
                 <p><h1>{this.state.movie.title}</h1></p>
-                <p>{this.state.movie.genre}</p>
+                {/* <p>{this.state.movie.genres}</p> */}
                 <p>{this.state.movie.overview}</p>
               </div>
             </div>
+
         )
     }
 }   

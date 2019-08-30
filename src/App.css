@@ -59,6 +59,10 @@ a, a:hover, a:visited {
   box-shadow: 0 2px 0 black;
 }
 
+.pages:disabled {
+  opacity: 0.3;
+}
+
 .flexContainer {
   text-align: center;
 }
@@ -73,7 +77,7 @@ a, a:hover, a:visited {
 
 .flickFlexBox {
   display: inline-flex;
-  margin: 25px 100px;
+  margin: 50px 150px;
 }
 
 .flickDetails {

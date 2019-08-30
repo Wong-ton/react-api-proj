@@ -1,6 +1,6 @@
 import React from 'react';
 import '../App.css';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 class TrendingMovies extends React.Component {
 
@@ -40,7 +40,6 @@ class TrendingMovies extends React.Component {
         // const movies = await reqMovie.json()
         // console.log(movies)
         console.log(movie)
-        // POST ROUTE
     }
 
     previousPage = () => {
